@@ -13,7 +13,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'webserver_login', usernameVariable: 'vagrant',passphraseVariable: 'devops')]) {
                     sshPublisher(
                         failOnError: true,
                         continueOnError: false,
@@ -21,7 +21,7 @@ pipeline {
                             sshPublisherDesc(
                                 configName: 'staging',
                                 sshCredentials: [
-                                    username: "$USERNAME",
+                                    username: "vagrant",
                                     
                                 ], 
                                 transfers: [
